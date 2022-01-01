@@ -1,0 +1,20 @@
+---
+datasets:
+  german-credit:
+    optional_sensitive_features:
+      - 'Age'
+      - 'Sex'
+      - 'Job'
+    control_feature: 'Credit amount'
+  bank-marketing:
+    optional_sensitive_features:
+      - 'age'
+      - 'job'
+      - 'marital'
+      - 'education'
+    control_feature: 'balance'
+    clf_metric_name: 'f1'
+default:
+  control_feature:
+  clf_metric_name: 'accuracy'
+...
