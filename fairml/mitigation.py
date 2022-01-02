@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from fairlearn.metrics import MetricFrame
 from fairlearn.reductions import DemographicParity, ErrorRate, ExponentiatedGradient, GridSearch
 
 from fairml.evaluation import get_metrics
@@ -8,9 +9,23 @@ from fairml.evaluation import get_metrics
 
 def exponentiated_gradient(clf, X_train, X_test, y_train, y_test,
                            CF_train, CF_test, A_train, A_test,
-                           control_feature, sensitive_feature, clf_metric_name):
+                           control_feature: str, sensitive_feature: str, clf_metric_name: str):
     """
         Exponentiated Gradient mitigation.
+
+        params:
+        - clf: classifier model.
+        - X_train: X train set.
+        - X_test: X test set.
+        - y_train: y train set.
+        - y_test: y test set.
+        - CF_train: control feature train set.
+        - CF_test: control feature test set.
+        - A_train: sensitive feature train set.
+        - A_test: sensitive feature test set.
+        - control_feature: name of control feature in the dataset to measure fairness over.
+        - sensitive_feature: name of sensitive feature in the dataset to measure its fairness.
+        - clf_metric_name: classifier metric such as accuracy, f1.
     """
     constraint = DemographicParity()
     mitigator = ExponentiatedGradient(clf, constraint)
@@ -26,10 +41,26 @@ def exponentiated_gradient(clf, X_train, X_test, y_train, y_test,
 
 def grid_search(clf, X_train, X_test, y_train, y_test,
                 CF_train, CF_test, A_train, A_test,
-                control_feature, sensitive_feature, clf_metric_name,
-                unmitigated_metric_frame, unmitigated_fairness_metric):
+                control_feature: str, sensitive_feature: str, clf_metric_name: str,
+                unmitigated_metric_frame: MetricFrame, unmitigated_fairness_metric: float):
     """
         Grid Search mitigation.
+
+        params:
+        - clf: classifier model.
+        - X_train: X train set.
+        - X_test: X test set.
+        - y_train: y train set.
+        - y_test: y test set.
+        - CF_train: control feature train set.
+        - CF_test: control feature test set.
+        - A_train: sensitive feature train set.
+        - A_test: sensitive feature test set.
+        - control_feature: name of control feature in the dataset to measure fairness over.
+        - sensitive_feature: name of sensitive feature in the dataset to measure its fairness.
+        - clf_metric_name: classifier metric such as accuracy, f1.
+        - unmitigated_metric_frame: original metric frame, before unfairness mitigation(`get_metrics`).
+        - unmitigated_fairness_metric: original fairness metric(`get_metrics`). 
     """
     sweep = GridSearch(clf,
                        constraints=DemographicParity(),

@@ -1,16 +1,20 @@
+from typing import List, Optional
+import pandas as pd
+
 from fairml.evaluation import get_metrics
 from fairml.detection import unfairness_recognition
 from fairml.mitigation import exponentiated_gradient, grid_search
 
 
-def full_auto_pipeline(dataset, optional_sensitive_features,
-                       control_feature=None,
-                       clf_metric_name='accuracy',
-                       num_of_mitigated_features=1):
+def full_auto_pipeline(dataset: pd.DataFrame, optional_sensitive_features: List[str],
+                       control_feature: Optional[str] = None,
+                       clf_metric_name: str = 'accuracy',
+                       num_of_mitigated_features: int = 1):
     """
         Full automated pipeline function.
-            - detection
-            - mitigation
+
+        - detection: `unfairness_recognition`.
+        - mitigation: `exponentiated_gradient`, `grid_search`.
     """
     data_y = dataset.pop('y')
     data_X = dataset
