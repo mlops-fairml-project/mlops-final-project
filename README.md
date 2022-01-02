@@ -17,3 +17,11 @@ Improve model fairness compared to the baseline.
     - `dataset`: 
         - bank-marketing
         - german-credit
+
+# Configuration
+`config.yml`
+
+For each dataset one can configure its:
+- `optional_sensitive_features`: list of potentially sensitive features.
+- `control_feature`: [control feature](https://fairlearn.org/v0.7.0/user_guide/assessment.html#control-features-for-grouped-metrics) to measure fairness over.
+- `clf_metric_name`: the name of the metric for the classifier model, e.g `accuracy`, `f1`.
