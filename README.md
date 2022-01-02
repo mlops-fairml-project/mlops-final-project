@@ -14,4 +14,6 @@ Improve model fairness compared to the baseline.
 # Running
 - Install dependencies: `pip install -r requirements.txt`
 - Pipeline : `python main.py <dataset>`
-    - dataset: `bank-marketing`, `german-credit`
+    - `dataset`: 
+        - bank-marketing
+        - german-credit
