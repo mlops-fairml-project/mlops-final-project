@@ -1,2 +1,6 @@
-xgboost
 fairlearn
+xgboost
+sklearn
+matplotlib
+pandas
+numpy
